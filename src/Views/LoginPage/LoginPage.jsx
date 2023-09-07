@@ -48,13 +48,14 @@ export const LoginPage = () => {
   const [Fields, setFields] = useState({
     username: "",
     password: "",
-    fcm: "",
+    fcm: "cyWpPiJYTiWCPF6dq7KVdF:APA91bE3vKforkbKdH1vnDqi1rYvCYr9TBCNYDkOJkp8sKI8Ku4LxyjUJ4SuXRQFgC-l2N2D8PIgHKX2IEmX__YWlcNUCwQIFP-YhqcJd4FwsR2vPCyfQETA7XUTeU9sMi3xnAmWnYgJ",
   });
 
   const submitForm = async () => {
     setToggle(true);
     try {
       const res = await POST("users/login", Fields);
+      console.log(res);
       if (res.status == 200) {
         toast({
           description: res.data.message,
