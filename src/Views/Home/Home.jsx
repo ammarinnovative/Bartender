@@ -34,6 +34,9 @@ import store from "../../app/store.js";
 export const Home = () => {
   const navigate = useNavigate();
   const selector = useSelector((store) => store);
+  const [percentage,setPercentage] = useState([]);
+  const [series,setSeries] = useState([]);
+  const [color,setColor] = useState([]);
   const [user, setUser] = useState();
   const [data, setData] = useState([]);
   const [users, setUsers] = useState([]);
@@ -55,7 +58,12 @@ export const Home = () => {
       authorization: `bearer ${user?.verificationToken}`,
     });
     setData(res?.data);
+    setPercentage(res?.data[2]?.rolePercentage?.percentage);
+    setSeries(res?.data[2]?.rolePercentage?.options?.series);
+    setColor(res?.data[2]?.rolePercentage?.options?.color);
   };
+
+
 
   useEffect(() => {
     if (user) {
@@ -64,12 +72,9 @@ export const Home = () => {
   }, [user]);
 
 
-  console.log(data);
-
-
   return (
     <Sidebar>
-      <StateCard />
+      <StateCard series={series} color={color} percentage={percentage} />
       <Box
         display={"flex"}
         width={"100%"}

@@ -5,17 +5,32 @@ import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { GET } from "../../utilities/ApiProvider";
 
-const StateCard = () => {
-  const data = {
-    series: [44, 55],
+const StateCard = ({ series, percentage, color }) => {
+  const [data, setData] = useState({
+    series: [],
     options: {
       chart: {
         type: "pie",
       },
-      colors: ["#ff0000", "#ff7500"],
-      labels: ["Red", "Ornage"],
+      colors: [],
+      labels: [],
     },
-  };
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  });
+
+  console.log(data);
 
   const selector = useSelector((state) => state);
   const [user, setUser] = useState({});
@@ -33,12 +48,22 @@ const StateCard = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    setData({
+      ...data,
+      series: percentage,
+      color: color,
+      labels: series,
+    });
+  }, [series, color, percentage]);
+
   const getData = async () => {
     const res = await GET("admin/home", {
       authorization: `bearer ${user?.verificationToken}`,
     });
     setDatas(res?.data);
   };
+  
 
   return (
     <Box
@@ -123,8 +148,8 @@ const StateCard = () => {
       <Box>
         <ReactApexChart
           width={"300px"}
-          options={data.options}
-          series={datas == null ? [0] : datas[2]?.rolePercentage.percentage}
+          options={data}
+          series={data?.series}
           type="pie"
           height={350}
         />

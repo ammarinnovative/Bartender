@@ -44,39 +44,42 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [toggle,setToggle] = useState(false);
+  const [toggle, setToggle] = useState(false);
   const [Fields, setFields] = useState({
     username: "",
     password: "",
-    fcm:""
+    fcm: "",
   });
-
 
   const submitForm = async () => {
     setToggle(true);
-    const res = await POST("users/login", Fields);
-    if (res.status == 200) {
-      toast({
-        description: res.data.message,
-        status: "success",
-        isClosable: true,
-        position: "bottom-left",
-        duration: 5000,
-      });
+    try {
+      const res = await POST("users/login", Fields);
+      if (res.status == 200) {
+        toast({
+          description: res.data.message,
+          status: "success",
+          isClosable: true,
+          position: "bottom-left",
+          duration: 5000,
+        });
+        setToggle(false);
+        dispatch(addUser(res?.data?.data));
+        navigate("/");
+      } else {
+        toast({
+          description: res.data.message,
+          status: "error",
+          isClosable: true,
+          position: "bottom-left",
+          duration: 5000,
+        });
+        setToggle(false);
+      }
       setToggle(false);
-      dispatch(addUser(res?.data?.data));
-      navigate("/");
-    } else {
-      toast({
-        description: res.data.message,
-        status: "error",
-        isClosable: true,
-        position: "bottom-left",
-        duration: 5000,
-      });
-      setToggle(false);
+    } catch (error) {
+      console.log(error);
     }
-    setToggle(false);
   };
 
   const selector = useSelector((store) => store);
@@ -157,20 +160,28 @@ export const LoginPage = () => {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
-            <Button width={"100%"} color={"white"} _hover={"none"} onClick={submitForm} border={"1px solid white"} backgroundColor={"hsl(352.86deg 100% 32.94%)"}>
-            {
-              toggle?<TailSpin
-              // height="20"
-              width="30"
-              color="white"
-              ariaLabel="tail-spin-loading"
-              radius="1"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible={true}
-            />:"Login"
-            }
-              
+            <Button
+              width={"100%"}
+              color={"white"}
+              _hover={"none"}
+              onClick={submitForm}
+              border={"1px solid white"}
+              backgroundColor={"hsl(352.86deg 100% 32.94%)"}
+            >
+              {toggle ? (
+                <TailSpin
+                  // height="20"
+                  width="30"
+                  color="white"
+                  ariaLabel="tail-spin-loading"
+                  radius="1"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              ) : (
+                "Login"
+              )}
             </Button>
           </VStack>
         </Container>
