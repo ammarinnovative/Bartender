@@ -55,7 +55,6 @@ export const LoginPage = () => {
     setToggle(true);
     try {
       const res = await POST("users/login", Fields);
-      console.log(res);
       if (res.status == 200) {
         toast({
           description: res.data.message,
