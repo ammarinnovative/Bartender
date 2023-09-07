@@ -5,32 +5,15 @@ import ReactApexChart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { GET } from "../../utilities/ApiProvider";
 
-const StateCard = ({ series, percentage, color }) => {
+const StateCard = ({ series1, percentage, color }) => {
   const [data, setData] = useState({
     series: [],
     options: {
-      chart: {
-        type: "pie",
-      },
-      colors: [],
-      labels: [],
+      labels:[]
+      
     },
-    responsive: [
-      {
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200,
-          },
-          legend: {
-            position: "bottom",
-          },
-        },
-      },
-    ],
   });
 
-  console.log(data);
 
   const selector = useSelector((state) => state);
   const [user, setUser] = useState({});
@@ -53,9 +36,9 @@ const StateCard = ({ series, percentage, color }) => {
       ...data,
       series: percentage,
       color: color,
-      labels: series,
+      labels: series1,
     });
-  }, [series, color, percentage]);
+  }, [series1, color, percentage]);
 
   const getData = async () => {
     const res = await GET("admin/home", {
@@ -63,7 +46,18 @@ const StateCard = ({ series, percentage, color }) => {
     });
     setDatas(res?.data);
   };
-  
+
+
+
+  let totalUser = 0;
+  let totalRevenue =0;
+
+
+  if(datas && datas?.length>0){
+    totalUser = datas[0]['totalUsers'];
+    totalRevenue = datas[1]['totalRevenue'];
+  }
+
 
   return (
     <Box
@@ -109,7 +103,7 @@ const StateCard = ({ series, percentage, color }) => {
               fontSize={"30px"}
               fontWeight={"semibold"}
             >
-              {datas === null ? "Loading" : datas[0]?.totalUsers}
+              {totalUser??"0"}
             </Text>
             <Text cursor={"pointer"}>View All</Text>
           </Box>
@@ -137,7 +131,7 @@ const StateCard = ({ series, percentage, color }) => {
             justifyContent={"space-between"}
           >
             <Text color={"white"} fontSize={"30px"} fontWeight={"semibold"}>
-              ${datas == null ? "0" : datas[1]?.totalRevenue ?? "null"}
+              ${totalRevenue??"0"}
             </Text>
             <Text color={"white"} cursor={"pointer"}>
               View All

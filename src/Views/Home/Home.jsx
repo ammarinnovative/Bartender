@@ -64,7 +64,6 @@ export const Home = () => {
   };
 
 
-
   useEffect(() => {
     if (user) {
       getData();
@@ -74,7 +73,7 @@ export const Home = () => {
 
   return (
     <Sidebar>
-      <StateCard series={series} color={color} percentage={percentage} />
+      <StateCard series1={series} color={color} percentage={percentage} />
       <Box
         display={"flex"}
         width={"100%"}
@@ -100,7 +99,7 @@ export const Home = () => {
         justifyContent={{ base: "center", md: "left", lg: "left" }}
         alignItems={"center"}
       >
-        {data[3]?.bartenders?.length > 0
+        {data && data[3]?.bartenders?.length > 0
           ? data[3]?.bartenders?.map((item) => {
               return (
                 <Box
@@ -213,7 +212,7 @@ export const Home = () => {
           justifyContent={{ base: "center", md: "left" }}
           mt={"20px"}
         >
-          {data[4]?.foodServers?.length > 0
+          {data && data[4]?.foodServers?.length > 0
             ? data[4]?.foodServers?.map((item) => {
                 return (
                   <Box
@@ -284,7 +283,7 @@ export const Home = () => {
         </Link>
       </Box>
       <Box display={"flex"} gap={"40px"} flexDirection={"column"}>
-        {data.length > 0
+        { data && data.length > 0
           ? data[5]?.allUser?.latestUser.map((item) => {
             console.log(item)
               return (
