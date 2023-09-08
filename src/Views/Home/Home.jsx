@@ -73,7 +73,7 @@ export const Home = () => {
 
   return (
     <Sidebar>
-      <StateCard series1={series} color={color} percentage={percentage} />
+      {/* <StateCard series1={series} color={color} percentage={percentage} /> */}
       <Box
         display={"flex"}
         width={"100%"}

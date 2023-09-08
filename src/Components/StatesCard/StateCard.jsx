@@ -52,6 +52,10 @@ const StateCard = ({ series1, percentage, color }) => {
   let totalUser = 0;
   let totalRevenue =0;
 
+  // if (datas && datas.length > 0) {
+  //   totalUser = datas[0]?.totalUsers ?? 0;
+  //   totalRevenue = datas[1]?.totalRevenue ?? 0;
+  // }
 
   if(datas && datas?.length>0){
     totalUser = datas[0]['totalUsers'];

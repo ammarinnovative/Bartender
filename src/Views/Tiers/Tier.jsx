@@ -137,7 +137,7 @@ export const Tiers = () => {
 
   return (
     <Sidebar>
-      <StateCard />
+      {/* <StateCard /> */}
       <Modal
         size={"xl"}
         closeOnOverlayClick={false}
