@@ -52,13 +52,21 @@ export const LoginPage = () => {
   });
 
   const submitForm = async () => {
-     console.log(Fields);
+    if (!Fields.username || !Fields.password) {
+      toast({
+        description: "Please fill all the fields",
+        status: "error",
+        isClosable: true,
+        position: "bottom-left",
+        duration: 5000,
+      });
+    }
     setToggle(true);
     try {
       const res = await POST("users/login", Fields);
       if (res.status == 200) {
         toast({
-          description: res?.data?.message,
+          description: "Login successfully",
           status: "success",
           isClosable: true,
           position: "bottom-left",
@@ -79,7 +87,14 @@ export const LoginPage = () => {
       }
       setToggle(false);
     } catch (error) {
-      console.log(error);
+      toast({
+        description: error,
+        status: "success",
+        isClosable: true,
+        position: "bottom-left",
+        duration: 5000,
+      });
+      setToggle(false);
     }
   };
 
