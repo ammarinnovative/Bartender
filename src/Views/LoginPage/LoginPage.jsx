@@ -52,12 +52,13 @@ export const LoginPage = () => {
   });
 
   const submitForm = async () => {
+     console.log(Fields);
     setToggle(true);
     try {
       const res = await POST("users/login", Fields);
       if (res.status == 200) {
         toast({
-          description: res.data.message,
+          description: res?.data?.message,
           status: "success",
           isClosable: true,
           position: "bottom-left",
@@ -68,7 +69,7 @@ export const LoginPage = () => {
         navigate("/");
       } else {
         toast({
-          description: res.data.message,
+          description: res?.data?.message,
           status: "error",
           isClosable: true,
           position: "bottom-left",
