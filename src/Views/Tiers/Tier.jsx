@@ -239,7 +239,7 @@ export const Tiers = () => {
             margin={"20px 5px 20px 5px"}
           >
             {catData &&
-              catData.map((item) => {
+              catData?.map((item) => {
                 return (
                   <Box
                     backgroundColor={"white"}
@@ -263,7 +263,7 @@ export const Tiers = () => {
                       justifyContent={"space-between"}
                     >
                       <Text color={"hsl(352.86deg 100% 32.94%)"}>
-                        {item.name}
+                        {item?.name}
                       </Text>
                       <Box
                         display={"flex"}
@@ -319,7 +319,7 @@ export const Tiers = () => {
                     >
                       <ul>
                         {item?.description.length &&
-                          item.description?.map((feature) => {
+                          item?.description?.map((feature) => {
                             return (
                               <li
                                 color="hsl(352.86deg 100% 32.94%)"
