@@ -60,6 +60,7 @@ export const LoginPage = () => {
         position: "bottom-left",
         duration: 5000,
       });
+      return;
     }
     setToggle(true);
     try {
@@ -88,8 +89,8 @@ export const LoginPage = () => {
       setToggle(false);
     } catch (error) {
       toast({
-        description: error,
-        status: "success",
+        description: error.message,
+        status: "error",
         isClosable: true,
         position: "bottom-left",
         duration: 5000,
